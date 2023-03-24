@@ -85,9 +85,9 @@ create table marking.product_movement
     cnt_moved    int                      not null
 );
 
-copy marking.participant_reference from 'participant_reference.csv' delimiter ',' csv header;
-copy marking.product_reference from 'product_reference.csv' delimiter ',' csv header;
-copy marking.salepoint_reference from 'salepoint_reference.csv' delimiter ',' csv header;
-copy marking.product_input from 'product_input.csv' delimiter ',' csv header;
-copy marking.product_output from 'product_output.csv' delimiter ',' csv header;
-copy marking.product_movement from 'product_movement.csv' delimiter ',' csv header;
+copy marking.participant_reference from '/root/marketing-hack-misis-anime/backend/app/data/datasets/participant_reference.csv' delimiter ',' csv header;
+copy marking.product_reference from '/root/marketing-hack-misis-anime/backend/app/data/datasets/product_reference.csv' delimiter ',' csv header;
+copy marking.salepoint_reference from '/root/marketing-hack-misis-anime/backend/app/data/datasets/salepoint_reference.csv' delimiter ',' csv header;
+copy marking.product_input from '/root/marketing-hack-misis-anime/backend/app/data/datasets/product_input.csv' delimiter ',' csv header;
+copy marking.product_output from '/root/marketing-hack-misis-anime/backend/app/data/datasets/product_output.csv' delimiter ',' csv header;
+copy marking.product_movement from '/root/marketing-hack-misis-anime/backend/app/data/datasets/product_movement.csv' delimiter ',' csv header;
