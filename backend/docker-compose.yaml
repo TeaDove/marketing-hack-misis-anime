@@ -1,27 +1,6 @@
 version: '3.1'
 
 services:
-  mongo:
-    image: mongo:6.0.4
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-      MONGO_INITDB_DATABASE: evraz
-    ports:
-      - 27017:27017
-    volumes:
-      - './app/data/mongo_data:/data/db'
-      - './extra/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro'
-    networks:
-      - backend
-    healthcheck:
-      test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
-      interval: 10s
-      timeout: 10s
-      retries: 5
-      start_period: 40s
-
   backend_web:
     restart: always
     environment:
@@ -51,18 +30,6 @@ services:
     ports:
       - 8000:8000
 
-  backend_kafka_processor:
-    restart: always
-    environment:
-      <<: *backend_enviroments
-    build:
-      context: .
-      dockerfile: DockerfileKafka
-    networks:
-      - backend
-    depends_on:
-      - mongo
-
   grafana:
     image: grafana/grafana:9.3.6
     networks:
@@ -91,8 +58,8 @@ services:
   postgres:
     image: postgres:15.2-alpine
     environment:
-      POSTGRES_USER: db_evraz
-      POSTGRES_PASSWORD: db_evraz
+      POSTGRES_USER: db_misis
+      POSTGRES_PASSWORD: db_misis
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5432:5432"
