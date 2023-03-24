@@ -1,8 +1,8 @@
 -- CREATE DATABASE db_evraz;
 
-GRANT ALL PRIVILEGES ON DATABASE db_evraz TO db_evraz;
+GRANT ALL PRIVILEGES ON DATABASE db_misis TO db_misis;
 
-\c db_evraz;
+\c db_misis;
 
 CREATE SCHEMA IF NOT EXISTS public;
 
