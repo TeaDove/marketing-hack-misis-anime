@@ -67,6 +67,7 @@ services:
     volumes:
       - ./backend/extra/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./backend/app/data/pg/:/var/lib/postgresql/data/
+      - ./backend/app/data/datasets/:/datasets
     networks:
       - backend
   # frontend:
