@@ -1,8 +1,8 @@
 -- CREATE DATABASE db_marking;
 
-grant all privileges on database db_misis to db_misis;
+-- grant all privileges on database db_misis to db_misis;
 
-\c db_misis;
+-- \c db_misis;
 
 create schema if not exists marking;
 
@@ -84,3 +84,10 @@ create table marking.product_movement
     receiver_inn text references marking.participant_reference (inn),
     cnt_moved    int                      not null
 );
+
+copy marking.participant_reference from 'participant_reference.csv' delimiter ',' csv header;
+copy marking.product_reference from 'product_reference.csv' delimiter ',' csv header;
+copy marking.salepoint_reference from 'salepoint_reference.csv' delimiter ',' csv header;
+copy marking.product_input from 'product_input.csv' delimiter ',' csv header;
+copy marking.product_output from 'product_output.csv' delimiter ',' csv header;
+copy marking.product_movement from 'product_movement.csv' delimiter ',' csv header;
