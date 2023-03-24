@@ -19,7 +19,7 @@ create table marking.product_reference
     gtin               text
         constraint gtin_pk
             primary key,
-    inn                text references marking.participant_reference (inn),
+    inn                text,
     product_name       text not null,
     product_short_name text not null,
     tnved              text not null,
@@ -37,7 +37,7 @@ create table marking.salepoint_reference
     id_sp          text
         constraint id_sp_pk
             primary key,
-    inn            text references marking.participant_reference (inn),
+    inn            text,
     region_code    text not null,
     city_with_type text,
     city_fias_id   text,
@@ -50,9 +50,9 @@ create index salepoint_reference_inn_idx
 create table marking.product_input
 (
     dt             timestamp with time zone not null,
-    inn            text references marking.participant_reference (inn),
-    gtin           text references marking.product_reference (gtin),
-    prid           text references marking.participant_reference (inn),
+    inn            text,
+    gtin           text,
+    prid           text,
     operation_type text                     not null,
     cnt            numeric                      not null
 );
@@ -63,10 +63,10 @@ create index product_input_inn_idx
 create table marking.product_output
 (
     dt             timestamp with time zone not null,
-    gtin           text references marking.product_reference (gtin),
-    prid           text references marking.participant_reference (inn),
-    inn            text references marking.participant_reference (inn),
-    id_sp          text references marking.salepoint_reference (id_sp),
+    gtin           text,
+    prid           text,
+    inn            text,
+    id_sp          text,
     type_operation text                     not null,
     price          numeric                      not null,
     cnt            numeric                      not null
@@ -78,10 +78,10 @@ create index product_output_inn_idx
 create table marking.product_movement
 (
     dt           timestamp with time zone not null,
-    gtin         text references marking.product_reference (gtin),
-    prid         text references marking.participant_reference (inn),
-    sender_inn   text references marking.participant_reference (inn),
-    receiver_inn text references marking.participant_reference (inn),
+    gtin         text,
+    prid         text,
+    sender_inn   text,
+    receiver_inn text,
     cnt_moved    numeric                      not null
 );
 
