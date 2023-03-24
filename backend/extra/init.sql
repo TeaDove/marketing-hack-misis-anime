@@ -16,9 +16,8 @@ create table marking.participant_reference
 
 create table marking.product_reference
 (
-    gtin               text
-        constraint gtin_pk
-            primary key,
+    id SERIAL primary key,
+    gtin               text not null,
     inn                text,
     product_name       text not null,
     product_short_name text not null,
@@ -28,6 +27,9 @@ create table marking.product_reference
     country            text,
     volume             text
 );
+
+create unique index pr_inn_gtin_idx
+    on marking.product_reference (inn, gtin);
 
 create index product_reference_inn_idx
     on marking.product_reference (inn);
@@ -85,8 +87,8 @@ create table marking.product_movement
     cnt_moved    numeric                      not null
 );
 
+copy marking.product_reference(gtin, inn, product_name, product_short_name, tnved, tnved10, brand, country, volume) from '/datasets/product_reference.csv' delimiter ',' csv header;
 copy marking.participant_reference from '/datasets/participant_reference.csv' delimiter ',' csv header;
-copy marking.product_reference from '/datasets/product_reference.csv' delimiter ',' csv header;
 copy marking.salepoint_reference from '/datasets/salepoint_reference.csv' delimiter ',' csv header;
 copy marking.product_input from '/datasets/product_input.csv' delimiter ',' csv header;
 copy marking.product_output from '/datasets/product_output.csv' delimiter ',' csv header;
