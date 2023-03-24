@@ -1,47 +1,47 @@
 version: '3.1'
 
 services:
-  backend_web:
-    restart: always
-    environment:
-      &backend_enviroments
-      MISIS_UVICORN_PORT: 8000
-      MISIS_PG_HOST: "postgres"
-    build:
-      context: .
-      dockerfile: DockerfileWeb
-    networks:
-      - backend
-    depends_on:
-      - mongo
-      - backend_kafka_processor
-    ports:
-      - 8000:8000
+  # backend_web:
+  #   restart: always
+  #   environment:
+  #     &backend_enviroments
+  #     MISIS_UVICORN_PORT: 8000
+  #     MISIS_PG_HOST: "postgres"
+  #   build:
+  #     context: .
+  #     dockerfile: DockerfileWeb
+  #   networks:
+  #     - backend
+  #   depends_on:
+  #     - mongo
+  #     - backend_kafka_processor
+  #   ports:
+  #     - 8000:8000
 
-  grafana:
-    image: grafana/grafana:9.3.6
-    networks:
-      - backend
-    environment:
-      - "GF_SECURITY_ADMIN_USER=admin"
-      - "GF_SECURITY_ADMIN_PASSWORD=coh&ja3teaJohmoh9jain4afaiT3iF"
-      - "GF_USERS_ALLOW_SIGN_UP=false"
-      - "GF_SERVER_DOMAIN=0.0.0.0"
-      - "GF_AUTH_ANONYMOUS_ENABLED=true"
-      - "GF_AUTH_ANONYMOUS_ORG_NAME=Main Org."
-      - "GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer"
-      - "GF_AUTH_ANONYMOUS_HIDE_VERSION=true"
-      - "GF_SECURITY_ALLOW_EMBEDDING=true"
-    depends_on:
-      - mongo
-    ports:
-      - 3000:3000
-    restart: unless-stopped
-    volumes:
-      - ./app/data/grafana/datasources:/etc/grafana/provisioning/datasources
-      - ./app/data/grafana/dashboards:/var/lib/grafana/dashboards
-      - ./app/data/grafana/datasources:/etc/grafana/datasources
-      - ./app/data/grafana/plugins:/var/lib/grafana/plugins
+  # grafana:
+  #   image: grafana/grafana:9.3.6
+  #   networks:
+  #     - backend
+  #   environment:
+  #     - "GF_SECURITY_ADMIN_USER=admin"
+  #     - "GF_SECURITY_ADMIN_PASSWORD=coh&ja3teaJohmoh9jain4afaiT3iF"
+  #     - "GF_USERS_ALLOW_SIGN_UP=false"
+  #     - "GF_SERVER_DOMAIN=0.0.0.0"
+  #     - "GF_AUTH_ANONYMOUS_ENABLED=true"
+  #     - "GF_AUTH_ANONYMOUS_ORG_NAME=Main Org."
+  #     - "GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer"
+  #     - "GF_AUTH_ANONYMOUS_HIDE_VERSION=true"
+  #     - "GF_SECURITY_ALLOW_EMBEDDING=true"
+  #   depends_on:
+  #     - mongo
+  #   ports:
+  #     - 3000:3000
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./app/data/grafana/datasources:/etc/grafana/provisioning/datasources
+  #     - ./app/data/grafana/dashboards:/var/lib/grafana/dashboards
+  #     - ./app/data/grafana/datasources:/etc/grafana/datasources
+  #     - ./app/data/grafana/plugins:/var/lib/grafana/plugins
 
   postgres:
     image: postgres:15.2-alpine
