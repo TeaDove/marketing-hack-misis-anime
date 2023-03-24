@@ -26,7 +26,7 @@ create table marking.product_reference
     tnved10            text not null,
     brand              text not null,
     country            text,
-    volume             int
+    volume             numeric
 );
 
 create index product_reference_inn_idx
@@ -54,7 +54,7 @@ create table marking.product_input
     gtin           text references marking.product_reference (gtin),
     prid           text references marking.participant_reference (inn),
     operation_type text                     not null,
-    cnt            int                      not null
+    cnt            numeric                      not null
 );
 
 create index product_input_inn_idx
@@ -68,8 +68,8 @@ create table marking.product_output
     inn            text references marking.participant_reference (inn),
     id_sp          text references marking.salepoint_reference (id_sp),
     type_operation text                     not null,
-    price          int                      not null,
-    cnt            int                      not null
+    price          numeric                      not null,
+    cnt            numeric                      not null
 );
 
 create index product_output_inn_idx
@@ -82,7 +82,7 @@ create table marking.product_movement
     prid         text references marking.participant_reference (inn),
     sender_inn   text references marking.participant_reference (inn),
     receiver_inn text references marking.participant_reference (inn),
-    cnt_moved    int                      not null
+    cnt_moved    numeric                      not null
 );
 
 copy marking.participant_reference from '/datasets/participant_reference.csv' delimiter ',' csv header;
