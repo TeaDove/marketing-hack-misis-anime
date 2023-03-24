@@ -26,7 +26,7 @@ create table marking.product_reference
     tnved10            text not null,
     brand              text not null,
     country            text,
-    volume             numeric
+    volume             text
 );
 
 create index product_reference_inn_idx
