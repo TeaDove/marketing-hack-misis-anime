@@ -5,8 +5,13 @@ from sqlalchemy.orm import Session
 
 from shared.settings import app_settings
 from schemas.product import Product
+from schemas.salepoint import SalepointReference
 from persistence.db_models import Product as ProductModel
+from persistence.db_models import SalepointReference as SalepointReferenceModel
+from persistence.db_models import ProductOutput as ProductOutputModel
 from typing import Optional, List
+from pydantic import ValidationError
+from shared.base import logger
 
 
 @dataclass
@@ -18,7 +23,7 @@ class PGRepository:
         )
         self.engine = create_engine(dsn)
 
-    def get_product(self, gtin: str, inn: str) -> Optional[Product]:
+    def get_product(self, inn: str, gtin: str) -> Optional[Product]:
         with Session(self.engine) as session:
             statement = select(ProductModel).where(
                 ProductModel.gtin == gtin, ProductModel.inn == inn
@@ -37,6 +42,39 @@ class PGRepository:
 
         items = []
         for row in rows:
-            items.append(Product.from_orm(row))
+            try:
+                items.append(Product.from_orm(row))
+            except ValidationError:
+                logger.warning("validation.error")
+
+        return items
+
+    def get_salespoints_by_product(
+        self, inn: str, gtin: str, page: int = 0, size: int = 10
+    ) -> List[SalepointReference]:
+        with Session(self.engine) as session:
+            print("ok")
+            statement = (
+                select(SalepointReferenceModel)
+                .join(
+                    ProductOutputModel,
+                    ProductOutputModel.inn == SalepointReferenceModel.inn,
+                )
+                .where(ProductOutputModel.prid == inn, ProductOutputModel.gtin == gtin)
+                .offset(page * size)
+                .limit(size)
+            )
+            from sqlalchemy.dialects import postgresql
+
+            print(statement.compile(dialect=postgresql.dialect()))
+            rows = session.execute(statement).fetchall()
+        print("ok")
+        items = []
+        for row in rows:
+            try:
+                items.append(SalepointReference.from_orm(row["SalepointReference"]))
+            except ValidationError:
+                logger.exception("validation.error")
+        print("ok")
 
         return items

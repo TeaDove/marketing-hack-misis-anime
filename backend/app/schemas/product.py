@@ -4,7 +4,7 @@ from typing import Optional
 
 
 class Product(CamelizedBaseModel):
-    gtin: str = Field(..., example="3538E27C87AF0716E95515A1525D937A")
+    gtin: str = Field(..., example="289AEBCA82877CB19E7AA33E0E522883")
     inn: str = Field(..., example="D0B1FE981FCC19F934C3FFD91690430F")
     product_name: str = Field(..., example="68F60FA530914522B26E25F262EBC6D6")
     product_short_name: str = Field(..., example="9199AB529CF62D4BDB7E8B1D7459001D")
