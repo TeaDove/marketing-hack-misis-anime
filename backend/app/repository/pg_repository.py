@@ -1,14 +1,12 @@
 from dataclasses import dataclass
 
 from sqlalchemy import create_engine, select
-from sqlalchemy.orm import Session, declarative_base
+from sqlalchemy.orm import Session
 
 from shared.settings import app_settings
 from schemas.product import Product
 from persistence.db_models import Product as ProductModel
-from typing import Optional
-
-Base = declarative_base()
+from typing import Optional, List
 
 
 @dataclass
@@ -31,3 +29,14 @@ class PGRepository:
             return None
 
         return Product.from_orm(row)
+
+    def get_products(self, inn: str) -> List[Product]:
+        with Session(self.engine) as session:
+            statement = select(ProductModel).where(ProductModel.inn == inn)
+            rows = session.execute(statement).scalars().all()
+
+        items = []
+        for row in rows:
+            items.append(Product.from_orm(row))
+
+        return items
