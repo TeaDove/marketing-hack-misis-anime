@@ -9,6 +9,7 @@ from schemas.salepoint import SalepointReference
 from persistence.db_models import Product as ProductModel
 from persistence.db_models import SalepointReference as SalepointReferenceModel
 from persistence.db_models import ProductOutput as ProductOutputModel
+from persistence.db_models import ProductMovement as ProductMovementModel
 from typing import Optional, List
 from pydantic import ValidationError
 from shared.base import logger
@@ -53,7 +54,6 @@ class PGRepository:
         self, inn: str, gtin: str, page: int = 0, size: int = 10
     ) -> List[SalepointReference]:
         with Session(self.engine) as session:
-            print("ok")
             statement = (
                 select(SalepointReferenceModel)
                 .join(
@@ -64,17 +64,26 @@ class PGRepository:
                 .offset(page * size)
                 .limit(size)
             )
-            from sqlalchemy.dialects import postgresql
-
-            print(statement.compile(dialect=postgresql.dialect()))
             rows = session.execute(statement).fetchall()
-        print("ok")
+
         items = []
         for row in rows:
             try:
                 items.append(SalepointReference.from_orm(row["SalepointReference"]))
             except ValidationError:
                 logger.exception("validation.error")
-        print("ok")
 
         return items
+
+    def get_distributors(self, inn: str, gtin: str) -> List[str]:
+        with Session(self.engine) as session:
+            statement = (
+                select(ProductMovementModel.receiver_inn)
+                .where(
+                    ProductMovementModel.prid == inn, ProductMovementModel.gtin == gtin
+                )
+                .distinct()
+            )
+            rows = session.execute(statement).scalars().all()
+
+        return rows

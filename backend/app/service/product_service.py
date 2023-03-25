@@ -23,3 +23,6 @@ class ProductService:
         return self.pg_repository.get_salespoints_by_product(
             inn=inn, gtin=gtin, page=page, size=size
         )
+
+    def get_distributors(self, inn: str, gtin: str) -> List[str]:
+        return self.pg_repository.get_distributors(inn=inn, gtin=gtin)

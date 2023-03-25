@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Text, BigInteger, MetaData, DateTime
+from sqlalchemy import Column, Text, BigInteger, MetaData, DateTime, Numeric
 from sqlalchemy.orm import declarative_base
 
 
@@ -36,10 +36,22 @@ class ProductOutput(Base):
     __tablename__ = "product_output"
 
     dt = Column(DateTime(True))
-    gtin = Column(Text)
-    prid = Column(Text, primary_key=True)
+    gtin = Column(Text, primary_key=True)
+    prid = Column(Text)
     inn = Column(Text)
     id_sp = Column(Text)
     type_operation = Column(Text)
     price = Column(Text)
     cnt = Column(Text)
+
+
+class ProductMovement(Base):
+    __tablename__ = "product_movement"
+
+    dt = Column(DateTime(True))
+    gtin = Column(Text, primary_key=True)
+    prid = Column(Text)
+
+    sender_inn = Column(Text)
+    receiver_inn = Column(Text)
+    cnt_moved = Column(Numeric)

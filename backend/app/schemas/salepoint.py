@@ -9,4 +9,4 @@ class SalepointReference(CamelizedBaseModel):
     region_code: str = Field(..., example="77")
     city_with_type: Optional[str] = Field(None, example=None)
     city_fias_id: Optional[str] = Field(None, example=None)
-    postal_code: Optional[str] = Field(None, example="109012")
+    postal_code: Optional[str] = Field(None, example="109012")  # todo make it int

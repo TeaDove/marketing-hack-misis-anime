@@ -54,3 +54,16 @@ def get_salepoints_by_product(
     )
 
     return salepoints
+
+
+@router.get(
+    "/organizations/{inn:str}/products/{gtin:str}/distributors",
+    response_model=List[str],
+)
+def get_distributors(
+    inn: str = Path(..., example="DA62EC79660CF21AC37A260DA6F642C4"),
+    gtin: str = Path(..., example="289AEBCA82877CB19E7AA33E0E522883"),
+) -> List[str]:
+    distributors = container.product_service.get_distributors(gtin=gtin, inn=inn)
+
+    return distributors
