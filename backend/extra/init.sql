@@ -56,7 +56,7 @@ create table marking.product_input
     gtin           text,
     prid           text,
     operation_type text                     not null,
-    cnt            numeric                      not null
+    cnt            numeric                  not null
 );
 
 create index product_input_inn_idx
