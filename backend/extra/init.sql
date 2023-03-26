@@ -87,6 +87,9 @@ create table marking.product_movement
     cnt_moved    numeric                      not null
 );
 
+create index product_movement_prid_gtin_index
+    on marking.product_movement (prid, gtin);
+
 copy marking.product_reference(gtin, inn, product_name, product_short_name, tnved, tnved10, brand, country, volume) from '/datasets/product_reference.csv' delimiter ',' csv header;
 copy marking.participant_reference from '/datasets/participant_reference.csv' delimiter ',' csv header;
 copy marking.salepoint_reference from '/datasets/salepoint_reference.csv' delimiter ',' csv header;
