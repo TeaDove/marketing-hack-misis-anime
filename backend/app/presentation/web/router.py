@@ -3,7 +3,7 @@ from schemas.product import Product
 from schemas.salepoint import SalepointReference
 from presentation.dependencies import container
 from typing import List, Optional
-from schemas.prediction import Prediciton
+from schemas.prediction import LinkPrediciton, Relations, RelationPrediciton
 
 router = APIRouter(prefix="")
 
@@ -64,13 +64,25 @@ def get_distributors(
     return distributors
 
 
-@router.get("/predictions", response_model=Prediciton)
-def predict_relations(
+@router.get("/predictions/links", response_model=LinkPrediciton)
+def predict_link(
     head_inn: str = Query(..., example="97D9CA38928AE6B9A0EA52F3CABC99E4"),
     tail_inn: str = Query(..., example="1BAC9B05B40E762DB243D16567D3AB41"),
-) -> Prediciton:
-    prediction = container.prediction_service.predict_relations(
+) -> LinkPrediciton:
+    prediction = container.prediction_service.predict_link(
         head_inn=head_inn, tail_inn=tail_inn
+    )
+
+    return prediction
+
+
+@router.get("/predictions/relations", response_model=RelationPrediciton)
+def predict_relations(
+    node: str = Query(..., example="97D9CA38928AE6B9A0EA52F3CABC99E4"),
+    relation: Relations = Query(..., example=Relations.distributed_to),
+) -> RelationPrediciton:
+    prediction = container.prediction_service.predict_relations(
+        node=node, relation=relation
     )
 
     return prediction

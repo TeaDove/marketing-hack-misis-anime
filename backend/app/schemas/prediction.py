@@ -19,10 +19,19 @@ class Relations(str, enum.Enum):
     located_in_inverse = "located_in_inverse"
 
 
-class RelationPrediction(CamelizedBaseModel):
+class LinkPredictionValue(CamelizedBaseModel):
     value: float
     class_: Relations = Field(..., alias="class")
 
 
-class Prediciton(CamelizedBaseModel):
-    predictions: List[RelationPrediction]
+class LinkPrediciton(CamelizedBaseModel):
+    predictions: List[LinkPredictionValue]
+
+
+class RelationPredictionValue(CamelizedBaseModel):
+    value: float
+    node: str
+
+
+class RelationPrediciton(CamelizedBaseModel):
+    predictions: List[RelationPredictionValue]

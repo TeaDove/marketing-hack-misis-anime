@@ -1,4 +1,5 @@
 from shared.containers import init_combat_container
+from schemas.prediction import Relations
 
 container = init_combat_container()
 
@@ -17,8 +18,14 @@ class TestClass:
         )
         print(salepoints)
 
+    def test_predict_links(self):
+        result = container.prediction_service.predict_link(
+            head_inn=head_inn, tail_inn=tail_inn
+        )
+        print(result)
+
     def test_predict_relations(self):
         result = container.prediction_service.predict_relations(
-            head_inn=head_inn, tail_inn=tail_inn
+            node=head_inn, relations=[Relations.distributed_to]
         )
         print(result)
