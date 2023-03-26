@@ -1,7 +1,7 @@
 ### Ссылки
 Исходный код: https://github.com/TeaDove/marketing-hack-misis-anime/ <br>
-Интерфейс: http://84.252.136.195 <br>
-Презентация: ... <br>
+Интерфейс: http://marking-frontend.website.yandexcloud.net/#/pred/link <br>
+Презентация: https://docs.google.com/presentation/d/1y2-SBC7W-DmQEKa-umuO1jCIrrTnMXOk/edit?usp=sharing&ouid=109487284558704250484&rtpof=true&sd=true <br>
 
 ### Концепция
 Построение графа знания для производителя и предсказание появлений новых связей
