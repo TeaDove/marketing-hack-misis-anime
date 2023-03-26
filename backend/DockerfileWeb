@@ -16,5 +16,7 @@ WORKDIR /backend/app
 
 RUN poetry config virtualenvs.create false \
     && poetry install --only main --no-interaction --no-ansi
+RUN pip install dicee==0.0.2
+
 
 CMD ["python3", "web_entrypoint.py"]
