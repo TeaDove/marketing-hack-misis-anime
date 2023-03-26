@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  @apply bg-indigo-100;
+  margin: 0;
+  padding: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@layer components {
+  .outlet {
+    @apply ml-72 w-full min-h-screen p-0 overflow-x-hidden;
+    max-width: calc(100vw - 288px);
+  }
+}
