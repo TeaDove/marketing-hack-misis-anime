@@ -15,6 +15,8 @@ class TestClass:
         salepoints = container.product_service.get_salepoint_by_product(
             inn="DA62EC79660CF21AC37A260DA6F642C4",
             gtin="289AEBCA82877CB19E7AA33E0E522883",
+            page=1,
+            size=300,
         )
         print(salepoints)
 
