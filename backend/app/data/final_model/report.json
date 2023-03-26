@@ -1,0 +1,9 @@
+{
+    "num_train_triples": 725770,
+    "num_entities": 22203,
+    "num_relations": 12,
+    "EstimatedSizeMB": 10.84716796875,
+    "NumParam": 11374080,
+    "path_experiment_folder": "/Users/sostema/dev/marking-hack-misis-anal/Experiments/2023-03-26 05:36:30.122011",
+    "Runtime": 4776.583992242813
+}
