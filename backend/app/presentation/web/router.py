@@ -2,7 +2,7 @@ from fastapi import APIRouter, Path, HTTPException, status, Query
 from schemas.product import Product
 from schemas.salepoint import SalepointReference
 from presentation.dependencies import container
-from typing import List
+from typing import List, Optional
 
 
 router = APIRouter(prefix="")
@@ -41,14 +41,9 @@ def get_product_by_gtin(
 def get_salepoints_by_product(
     inn: str = Path(..., example="DA62EC79660CF21AC37A260DA6F642C4"),
     gtin: str = Path(..., example="289AEBCA82877CB19E7AA33E0E522883"),
-    page: int = Query(1),
-    size: int = Query(20),
+    page: Optional[int] = Query(None),
+    size: Optional[int] = Query(None),
 ) -> List[SalepointReference]:
-    page -= 1
-    if page < 0:
-        raise HTTPException(
-            status.HTTP_422_UNPROCESSABLE_ENTITY, "page should be more than 0"
-        )
     salepoints = container.product_service.get_salepoint_by_product(
         gtin=gtin, inn=inn, page=page, size=size
     )

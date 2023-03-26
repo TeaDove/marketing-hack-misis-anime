@@ -18,7 +18,11 @@ class ProductService:
         return self.pg_repository.get_products(inn=inn)
 
     def get_salepoint_by_product(
-        self, inn: str, gtin: str, page: int = 0, size: int = 20
+        self,
+        inn: str,
+        gtin: str,
+        page: Optional[int] = None,
+        size: Optional[int] = None,
     ) -> List[SalepointReference]:
         return self.pg_repository.get_salespoints_by_product(
             inn=inn, gtin=gtin, page=page, size=size

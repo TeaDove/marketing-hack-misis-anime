@@ -51,7 +51,11 @@ class PGRepository:
         return items
 
     def get_salespoints_by_product(
-        self, inn: str, gtin: str, page: int = 0, size: int = 10
+        self,
+        inn: str,
+        gtin: str,
+        page: Optional[int] = None,
+        size: Optional[int] = None,
     ) -> List[SalepointReference]:
         with Session(self.engine) as session:
             statement = (
@@ -61,9 +65,10 @@ class PGRepository:
                     ProductOutputModel.inn == SalepointReferenceModel.inn,
                 )
                 .where(ProductOutputModel.prid == inn, ProductOutputModel.gtin == gtin)
-                .offset(page * size)
-                .limit(size)
+                .order_by(SalepointReferenceModel.id_sp)
             )
+            if page is not None and size is not None:
+                statement = statement.offset(page * size).limit(size)
             rows = session.execute(statement).fetchall()
 
         items = []
